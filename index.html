@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script
+            type="module"
+            src="/src/main.ts"
+            defer
+        ></script>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Turing Machine</title>
+    </head>
+    <body>
+        <h1>Turing Machine</h1>
+        <div id="name"></div>
+        <canvas
+            id="tape"
+            height="200"
+        ></canvas>
+        <div id="currentState"></div>
+        <div id="acceptingState"></div>
+        <textarea
+            name="input"
+            id="textarea"
+            spellcheck="false"
+        ></textarea>
+        <div id="error"></div>
+        <button id="run">Run</button>
+        <button id="exampleScript">paste example script</button>
+        <div id="introduction">
+            <h2>Introduction</h2>
+            <p>
+                A Turing machine is a mathematical model of computation that
+                defines an abstract machine, which manipulates symbols on a
+                strip of tape according to a table of rules. Despite the model's
+                simplicity, given any computer algorithm, a Turing machine
+                capable of simulating that algorithm's logic can be constructed.
+            </p>
+            <p>
+                The machine operates on an infinite memory tape(though i have
+                used a finitely large number) divided into discrete cells. Each
+                cell contains a symbol from some finite alphabet. The tape head
+                is positioned at a cell and can read or write a symbol on the
+                cell. The tape head can move left or right one cell at a time or
+                even stay at that cell. The machine is in a particular state
+                from a finite set of states. The machine can change state and
+                move the tape head based on the symbol read from the tape.
+            </p>
+            <p>
+                The machine is said to accept an input string if it halts in an
+                accepting state. The machine is said to reject an input string
+                if it halts in a non-accepting state. The machine is said to
+                loop if it never halts.
+            </p>
+            <h2>Steps to create algo for this machine</h2>
+            <ol class="steps">
+                <li>
+                    <p>
+                        start by giving the machine a name (optional) <br />
+                        <code>name: even length checker</code>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        then give the machine initial tape sequence <br />
+                        note: the tape sequence should not have space you can
+                        specify empty block by '_' <br />
+                        <code>tape: 0101010101</code>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        then give the machine initial state <br />
+                        note: statenames should of single word <br />
+                        <code>initialState: oddPosition</code>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        then give the machine accepting state <br />
+                        <code>acceptingState: even</code>
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        then give the machine rules or transition functions
+                        <br />
+                        syntax for defining transition functions is <br />
+                        <code>
+                            ( currentState, currentSymbol ) : ( nextState,
+                            updateSymbol, directionOfHeadMovement ) <br />
+                        </code>
+                        transition functions work as follows <br />
+                    </p>
+
+                    <ul>
+                        <li>
+                            if the current state is currentState and the current
+                            symbol is currentSymbol then the machine will change
+                            its state to nextState, update the current symbol to
+                            updateSymbol and move the tape head in the direction
+                            specified by directionOfHeadMovement
+                        </li>
+                        <li>
+                            currentSymbol can take following values <br />
+                            <ul>
+                                <li>specified character symbol</li>
+                                <li>'*' : any symbol except empty block</li>
+                                <li>'_' : empty block</li>
+                            </ul>
+                            note: currentSymbol should be a single character
+                        </li>
+                    </ul>
+                    following is the example of transition functions for even
+                    length checking turing machine <br />
+                    <code>
+                        transitionFunctions: { <br />
+                        (evenPosition, *): (oddPosition, *, R) <br />
+                        (oddPosition, *): (evenPosition, *, R) <br />
+                        (evenPosition, _): (odd, _, S) <br />
+                        (oddPosition, _): (even, _, S) <br />
+                        } <br />
+                    </code>
+                </li>
+                <li>
+                    <p>
+                        now the script should look like this <br />
+                        <code>
+                            name: even length checker <br /><br />
+
+                            tape: 0101010101 <br />
+                            initialState: oddPosition <br />
+                            acceptingState: even <br /><br />
+
+                            transitionFunctions: { <br />
+                            (evenPosition, *): (oddPosition, *, R) <br />
+                            (oddPosition, *): (evenPosition, *, R) <br />
+                            (evenPosition, _): (odd, _, S) <br />
+                            (oddPosition, _): (even, _, S) <br />
+                            } <br />
+                        </code>
+                        and you can run the machine by clicking the run button
+                    </p>
+                </li>
+            </ol>
+        </div>
+        <footer>
+            <div>
+                Made with ❤️ by &nbsp;
+                <a
+                    href="https://github.com/harshp0205/"
+                    target="_blank"
+                >
+                    Kumar Harsh
+                </a>
+            </div>
+            <div>
+                <a
+                    href="https://www.linkedin.com/in/kumarharsh-p/"
+                    target="_blank"
+                >
+                    <img
+                        src="https://img.icons8.com/color/48/000000/linkedin.png"
+                        alt="linkedin"
+                        height="30"
+                    />
+                </a>
+            </div>
+            <div>
+                <a
+                    href="https://github.com/harshit6239"
+                    target="_blank"
+                >
+                    <img
+                        src="https://img.icons8.com/ios-glyphs/30/ffffff/github.png"
+                        alt="github"
+                        height="30"
+                    />
+                </a>
+            </div>
+        </footer>
+    </body>
+</html>
